@@ -1,0 +1,50 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Test Constructores
+      id: test-constructores
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Constructores
+        setup-command: sudo -H pip3 install pytest
+        command: pytest testConstructores.py
+        timeout: 10
+        max-score: 17
+    - name: Test Cantidades
+      id: test-cantidades
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Cantidades
+        setup-command: sudo -H pip3 install pytest
+        command: pytest testCantidades.py
+        timeout: 10
+        max-score: 17
+    - name: Test Retornos
+      id: test-retornos
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Retornos
+        setup-command: sudo -H pip3 install pytest
+        command: pytest testRetornos.py
+        timeout: 10
+        max-score: 16
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST-CONSTRUCTORES_RESULTS: "${{steps.test-constructores.outputs.result}}"
+        TEST-CANTIDADES_RESULTS: "${{steps.test-cantidades.outputs.result}}"
+        TEST-RETORNOS_RESULTS: "${{steps.test-retornos.outputs.result}}"
+      with:
+        runners: test-constructores,test-cantidades,test-retornos

@@ -21,11 +21,11 @@ class Animal:
 
     @staticmethod
     def totalPorTipo():
-        return (f"Mamiferos: {Animal.totalMamiferos}\n"
-                f"Aves: {Animal.totalAves}\n"
-                f"Reptiles: {Animal.totalReptiles}\n"
-                f"Peces: {Animal.totalPeces}\n"
-                f"Anfibios: {Animal.totalAnfibios}")
+        return (f"Mamiferos : {Animal.totalMamiferos}\n"
+                f"Aves : {Animal.totalAves}\n"
+                f"Reptiles : {Animal.totalReptiles}\n"
+                f"Peces : {Animal.totalPeces}\n"
+                f"Anfibios : {Animal.totalAnfibios}")
 
     def getNombre(self):
         return self.nombre
